@@ -1,0 +1,55 @@
+import React, { use, useState } from "react";
+
+const Users = ({ usersPromise }) => {
+  const initialUsers = use(usersPromise);
+
+  const [users, setUsers] = useState(initialUsers);
+  const handleAddUser = (e) => {
+    e.preventDefault();
+    const name = e.target.name.value;
+    const email = e.target.email.value;
+    console.log(name, email);
+    const newUser = { name, email };
+    fetch("http://localhost:3000/users", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(newUser),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.insertedId) {
+          newUser._id = data.insertedId;
+          const newUsers = [...users, newUsers];
+          setUsers(newUsers);
+          alert("users added successfully");
+          e.target.reset();
+        }
+      });
+  };
+  return (
+    <div>
+      <h2>Users : {users.length}</h2>
+      <form onSubmit={handleAddUser} className="text-center">
+        <input className="text-white border-2 my-2" type="text" name="name" />
+        <br />
+        <input className="text-white border-2 my-2" type="email" name="email" />
+        <br />
+        <input
+          className="btn border-fuchsia-400"
+          type="submit"
+          value="Submit"
+        />
+      </form>
+      {users.map((user) => (
+        <p key={user._id} className="text-white border-2 text-center my-2">
+          {user.name} : {user.email} : {user._id}
+        </p>
+      ))}
+    </div>
+  );
+};
+
+export default Users;
