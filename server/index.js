@@ -1,58 +1,121 @@
-const express = require('express')
-const cors=require('cors');
-const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
-const app = express()
-const port = process.env.PORT || 3000
+const express = require("express");
+const cors = require("cors");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
+const app = express();
+const port = process.env.PORT || 3000;
 
 // middleware
 app.use(cors());
 app.use(express.json());
 // cardCreate
 // fgiA4aWY23AhmTJB
-const uri = "mongodb+srv://cardCreate:fgiA4aWY23AhmTJB@cluster0.1ejwnc7.mongodb.net/?appName=Cluster0";
+const uri =
+  "mongodb+srv://cardCreate:fgiA4aWY23AhmTJB@cluster0.1ejwnc7.mongodb.net/?appName=Cluster0";
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
     strict: true,
     deprecationErrors: true,
-  }
+  },
 });
 
-app.get('/', (req, res) => {
-  res.send('Backend running...!') 
-})
+app.get("/", (req, res) => {
+  res.send("Backend running...!");
+});
 
 async function run() {
   try {
     await client.connect();
-    //  
+    //
 
-    const userPost=client.db('userPost');
-    const userCollection=userPost.collection('users')
+    const userPost = client.db("userPost");
+    const userCollection = userPost.collection("users");
 
-    app.get('/users',async(req,res)=>{
-      const cursor=userCollection.find();
+    app.get("/users", async (req, res) => {
+      const cursor = userCollection.find();
       const result = await cursor.toArray();
-      res.send(result)
-    })
-    app.get('/users/:id',async(req,res)=>{
-      const id=req.params.id;
-      console.log('need user with id ',id);
-      const query={_id:new ObjectId(id)}
-      result=await userCollection.findOne(query)
-      res.send(result)
-    })
+      res.send(result);
+    });
+    app.get("/users/:id", async (req, res) => {
+      const id = req.params.id;
+      console.log("need user with id ", id);
+      const query = { _id: new ObjectId(id) };
+      result = await userCollection.findOne(query);
+      res.send(result);
+    });
 
     // add database related apis here 1
-    app.post('/users',async(req,res)=>{
-      const newUser=req.body
-      console.log('user info',newUser)
-      const result=await userCollection.insertOne(newUser);
+    app.post("/users", async (req, res) => {
+      const newUser = req.body;
+      console.log("user info", newUser);
+      const result = await userCollection.insertOne(newUser);
+      res.send(result);
+    });
+    // update User
+    // app.patch("/users/:id", async (req, res) => {
+    //   const id = req.params.id;
+    //   const updateUser = req.body;
+    //   console.log("to update", id, updateUser);
+    //   const query = { _id: new ObjectId(id) };
+    //   const update = {
+    //     $set: {
+    //       name: updateUser.name,
+    //       email: updateUser.email,
+    //     },
+    //   };
+    //   const options = {};
+    //   const result = await userCollection.updateOne(query, update, options);
+    //   res.send(result);
+    // });
+
+  app.patch("/users/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const updateUser = req.body; // expect all fields from frontend
+    console.log("Updating user:", id, updateUser);
+
+    const query = { _id: new ObjectId(id) };
+
+    const update = {
+      $set: {
+        name: updateUser.name,
+        fatherName: updateUser.fatherName,
+        motherName: updateUser.motherName,
+        dateOfBirth: updateUser.dateOfBirth,
+        nationality: updateUser.nationality,
+        bloodGroup: updateUser.bloodGroup,
+        nationalID: updateUser.nationalID,
+        mobileNumber: updateUser.mobileNumber,
+        email: updateUser.email,
+        presentAddress: updateUser.presentAddress,
+        skills: updateUser.skills,
+        social: updateUser.social,
+      },
+    };
+
+    const options = { }; 
+    const result = await userCollection.updateOne(query, update, options);
+    res.send(result); 
+  } catch (error) {
+    console.error("Error updating user:", error);
+    res.status(500).send({ error: "Internal Server Error" });
+  }
+});
+
+
+
+    // delete
+    app.delete('/users/:id',async(req,res)=>{
+      const id=req.params.id;
+      const query={_id:new ObjectId(id)}
+      const result=await userCollection.deleteOne(query);
       res.send(result)
     })
 
     await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
+    console.log(
+      "Pinged your deployment. You successfully connected to MongoDB!"
+    );
   } finally {
     // await client.close();
   }
@@ -60,5 +123,5 @@ async function run() {
 run().catch(console.dir);
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+  console.log(`Example app listening on port ${port}`);
+});

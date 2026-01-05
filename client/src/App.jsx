@@ -1,4 +1,3 @@
-
 import "./App.css";
 import Users from "./components/Users";
 
@@ -8,7 +7,6 @@ const usersPromise = fetch("http://localhost:3000/users").then((res) =>
 function App() {
   return (
     <>
-      <h1>Vite + React</h1>
       <Users usersPromise={usersPromise} />
     </>
   );
