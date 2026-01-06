@@ -12,12 +12,14 @@ const router = createBrowserRouter([
   },
   {
     path: "users/:id",
-    loader: ({ params }) => fetch(`http://localhost:3000/users/${params.id}`),
+    loader: ({ params }) =>
+      fetch(`https://certificate-backend-zeta.vercel.app/users/${params.id}`),
     Component: UserDetails,
   },
   {
     path: "update/:id",
-    loader: ({ params }) => fetch(`http://localhost:3000/users/${params.id}`),
+    loader: ({ params }) =>
+      fetch(`https://certificate-backend-zeta.vercel.app/users/${params.id}`),
     Component: UpdateUser,
   },
 ]);

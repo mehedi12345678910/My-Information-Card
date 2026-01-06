@@ -1,9 +1,9 @@
 import "./App.css";
 import Users from "./components/Users";
 
-const usersPromise = fetch("http://localhost:3000/users").then((res) =>
-  res.json()
-);
+const usersPromise = fetch(
+  "https://certificate-backend-zeta.vercel.app/users"
+).then((res) => res.json());
 function App() {
   return (
     <>

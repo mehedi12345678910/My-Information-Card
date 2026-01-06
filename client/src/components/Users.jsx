@@ -1,6 +1,6 @@
 import React, { use, useState } from "react";
 import { Link } from "react-router";
-import Swal from "sweetalert2"; // ✅ SweetAlert import
+import Swal from "sweetalert2";
 
 const Users = ({ usersPromise }) => {
   const initialUsers = use(usersPromise);
@@ -37,7 +37,7 @@ const Users = ({ usersPromise }) => {
       social,
     };
 
-    fetch("http://localhost:3000/users", {
+    fetch("https://certificate-backend-zeta.vercel.app/users", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -75,7 +75,7 @@ const Users = ({ usersPromise }) => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/users/${id}`, {
+        fetch(`https://certificate-backend-zeta.vercel.app/users/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
@@ -100,96 +100,99 @@ const Users = ({ usersPromise }) => {
 
   return (
     <div className="text-center p-6 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 min-h-screen">
-            <h1 className="text-4xl text-center my-4 font-semibold ">
-              Programing <span className="text-orange-400 font-bold">Hero</span>
-            </h1>
+      <h1 className="text-4xl text-center my-4 font-semibold ">
+        Programing <span className="text-orange-400 font-bold">Hero</span>
+      </h1>
       <div className="max-w-xl mx-auto bg-black/50 backdrop-blur-lg rounded-2xl p-6 shadow-xl">
         <h2 className="text-3xl font-bold text-white mb-6">
           👥 Users: {users.length}
         </h2>
 
         {/* Form */}
-<form onSubmit={handleAddUser} className="grid grid-cols-1 md:grid-cols-2 gap-4 text-white">
-  <input
-    type="text"
-    name="Name"
-    placeholder="Full Name"
-    className="w-full p-2 rounded border border-purple-500 bg-slate-800 focus:outline-none focus:ring-2 focus:ring-purple-400"
-  />
-  <input
-    type="text"
-    name="FatherName"
-    placeholder="Father's Name"
-    className="w-full p-2 rounded border border-purple-500 bg-slate-800 focus:outline-none focus:ring-2 focus:ring-purple-400"
-  />
-  <input
-    type="text"
-    name="MotherName"
-    placeholder="Mother's Name"
-    className="w-full p-2 rounded border border-purple-500 bg-slate-800 focus:outline-none focus:ring-2 focus:ring-purple-400"
-  />
-  <input
-    type="date"
-    name="DateOfBirth"
-    className="w-full p-2 rounded border border-purple-500 bg-slate-800 focus:outline-none focus:ring-2 focus:ring-purple-400"
-  />
-  <input
-    type="text"
-    name="Nationality"
-    placeholder="Nationality"
-    className="w-full p-2 rounded border border-purple-500 bg-slate-800 focus:outline-none focus:ring-2 focus:ring-purple-400"
-  />
-  <input
-    type="text"
-    name="BloodGroup"
-    placeholder="Blood Group"
-    className="w-full p-2 rounded border border-purple-500 bg-slate-800 focus:outline-none focus:ring-2 focus:ring-purple-400"
-  />
-  <input
-    type="text"
-    name="NationalID"
-    placeholder="National ID"
-    className="w-full p-2 rounded border border-purple-500 bg-slate-800 focus:outline-none focus:ring-2 focus:ring-purple-400"
-  />
-  <input
-    type="text"
-    name="MobileNumber"
-    placeholder="Mobile Number"
-    className="w-full p-2 rounded border border-purple-500 bg-slate-800 focus:outline-none focus:ring-2 focus:ring-purple-400"
-  />
-  <input
-    type="text"
-    name="EmailAddress"
-    placeholder="Email Address"
-    className="w-full p-2 rounded border border-purple-500 bg-slate-800 focus:outline-none focus:ring-2 focus:ring-purple-400"
-  />
-  <input
-    type="text"
-    name="PresentAddress"
-    placeholder="Present Address"
-    className="w-full p-2 rounded border border-purple-500 bg-slate-800 focus:outline-none focus:ring-2 focus:ring-purple-400"
-  />
-  <input
-    type="text"
-    name="Skills"
-    placeholder="Skills"
-    className="w-full p-2 rounded border border-purple-500 bg-slate-800 focus:outline-none focus:ring-2 focus:ring-purple-400"
-  />
-  <input
-    type="url"
-    name="Social"
-    placeholder="Social Profile Link"
-    className="w-full p-2 rounded border border-purple-500 bg-slate-800 focus:outline-none focus:ring-2 focus:ring-purple-400"
-  />
+        <form
+          onSubmit={handleAddUser}
+          className="grid grid-cols-1 md:grid-cols-2 gap-4 text-white"
+        >
+          <input
+            type="text"
+            name="Name"
+            placeholder="Full Name"
+            className="w-full p-2 rounded border border-purple-500 bg-slate-800 focus:outline-none focus:ring-2 focus:ring-purple-400"
+          />
+          <input
+            type="text"
+            name="FatherName"
+            placeholder="Father's Name"
+            className="w-full p-2 rounded border border-purple-500 bg-slate-800 focus:outline-none focus:ring-2 focus:ring-purple-400"
+          />
+          <input
+            type="text"
+            name="MotherName"
+            placeholder="Mother's Name"
+            className="w-full p-2 rounded border border-purple-500 bg-slate-800 focus:outline-none focus:ring-2 focus:ring-purple-400"
+          />
+          <input
+            type="date"
+            name="DateOfBirth"
+            className="w-full p-2 rounded border border-purple-500 bg-slate-800 focus:outline-none focus:ring-2 focus:ring-purple-400"
+          />
+          <input
+            type="text"
+            name="Nationality"
+            placeholder="Nationality"
+            className="w-full p-2 rounded border border-purple-500 bg-slate-800 focus:outline-none focus:ring-2 focus:ring-purple-400"
+          />
+          <input
+            type="text"
+            name="BloodGroup"
+            placeholder="Blood Group"
+            className="w-full p-2 rounded border border-purple-500 bg-slate-800 focus:outline-none focus:ring-2 focus:ring-purple-400"
+          />
+          <input
+            type="text"
+            name="NationalID"
+            placeholder="National ID"
+            className="w-full p-2 rounded border border-purple-500 bg-slate-800 focus:outline-none focus:ring-2 focus:ring-purple-400"
+          />
+          <input
+            type="text"
+            name="MobileNumber"
+            placeholder="Mobile Number"
+            className="w-full p-2 rounded border border-purple-500 bg-slate-800 focus:outline-none focus:ring-2 focus:ring-purple-400"
+          />
+          <input
+            type="text"
+            name="EmailAddress"
+            placeholder="Email Address"
+            className="w-full p-2 rounded border border-purple-500 bg-slate-800 focus:outline-none focus:ring-2 focus:ring-purple-400"
+          />
+          <input
+            type="text"
+            name="PresentAddress"
+            placeholder="Present Address"
+            className="w-full p-2 rounded border border-purple-500 bg-slate-800 focus:outline-none focus:ring-2 focus:ring-purple-400"
+          />
+          <input
+            type="text"
+            name="Skills"
+            placeholder="Skills"
+            className="w-full p-2 rounded border border-purple-500 bg-slate-800 focus:outline-none focus:ring-2 focus:ring-purple-400"
+          />
+          <input
+            type="url"
+            name="Social"
+            placeholder="Social Profile Link"
+            className="w-full p-2 rounded border border-purple-500 bg-slate-800 focus:outline-none focus:ring-2 focus:ring-purple-400"
+          />
 
-  {/* Submit Button takes full width */}
-  <button
-    type="submit"
-    className="md:col-span-2 py-2 rounded bg-gradient-to-r from-fuchsia-500 to-purple-600 hover:scale-105 transition font-semibold text-white"
-  >
-    Add User
-  </button>
-</form>
+          {/* Submit Button takes full width */}
+          <button
+            type="submit"
+            className="md:col-span-2 py-2 rounded bg-gradient-to-r from-fuchsia-500 to-purple-600 hover:scale-105 transition font-semibold text-white"
+          >
+            Add User
+          </button>
+        </form>
 
         {/* Users List */}
         <div className="space-y-3">

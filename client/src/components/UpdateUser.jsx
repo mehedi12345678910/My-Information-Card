@@ -24,7 +24,7 @@ const UpdateUser = () => {
       social: e.target.Social.value,
     };
 
-    fetch(`http://localhost:3000/users/${user._id}`, {
+    fetch(`https://certificate-backend-zeta.vercel.app/users/${user._id}`, {
       method: "PATCH",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(updatedUser),
